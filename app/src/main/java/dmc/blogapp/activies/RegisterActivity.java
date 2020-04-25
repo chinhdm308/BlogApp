@@ -26,12 +26,17 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import dmc.blogapp.R;
+import dmc.blogapp.model.User;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -58,11 +63,6 @@ public class RegisterActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        final String name = txtDisplayName.getText().toString();
-        final String email = txtEmail.getText().toString();
-        final String password = txtPassword.getText().toString();
-        final String confirmPass = txtConfirmPassword.getText().toString();
-
         imgProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,6 +77,11 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final String name = txtDisplayName.getText().toString();
+                final String email = txtEmail.getText().toString();
+                final String password = txtPassword.getText().toString();
+                final String confirmPass = txtConfirmPassword.getText().toString();
+
                 if (name.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPass.isEmpty()) {
                     showMessage("Please verify all fields");
                     loadingRegisterProgress.setVisibility(View.INVISIBLE);
@@ -112,6 +117,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void createUserAccount(String email, final String name, String password) {
+        // this method create user account with specific email and password
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -154,8 +160,7 @@ public class RegisterActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
                                     // user info updated successfully
-                                    showMessage("Register complete");
-                                    updateUI();
+                                    addUserIntoDatabase(currentUser);
                                 }
                             }
                         });
@@ -163,6 +168,23 @@ public class RegisterActivity extends AppCompatActivity {
                 });
             }
         });
+
+    }
+
+    private void addUserIntoDatabase(FirebaseUser currentUser) {
+        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("users").child(currentUser.getUid());
+        myRef.setValue(new User(currentUser.getUid(), currentUser.getDisplayName(), currentUser.getPhotoUrl().toString()))
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            showMessage("Register complete");
+                            updateUI();
+                        } else {
+                            showMessage("account creation failed" + task.getException().getMessage());
+                        }
+                    }
+                });
     }
 
     private void updateUI() {
@@ -173,9 +195,12 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void openGallery() {
         //TODO: open gallery intent and wait for user to pick an image
-        Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
-        galleryIntent.setType("image/*");
-        startActivityForResult(galleryIntent, REQUESCODE);
+//        Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
+//        galleryIntent.setType("image/*");
+//        startActivityForResult(galleryIntent, REQUESCODE);
+
+        // start picker to get image for cropping and then use the image in cropping activity
+        CropImage.activity().setGuidelines(CropImageView.Guidelines.ON).start(this);
     }
 
     private void checkAndRequestForPermission() {
@@ -211,10 +236,19 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+//        if (resultCode == RESULT_OK && requestCode == REQUESCODE && data != null) {
+//            pickedImgUri = data.getData();
+//            imgProfile.setImageURI(pickedImgUri);
+//        }
 
-        if (resultCode == RESULT_OK && requestCode == REQUESCODE && data != null) {
-            pickedImgUri = data.getData();
-            imgProfile.setImageURI(pickedImgUri);
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == RESULT_OK) {
+                pickedImgUri = result.getUri();
+                imgProfile.setImageURI(pickedImgUri);
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                Exception error = result.getError();
+            }
         }
     }
 }
