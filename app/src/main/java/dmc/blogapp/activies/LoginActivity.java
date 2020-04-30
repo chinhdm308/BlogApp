@@ -54,6 +54,8 @@ public class LoginActivity extends AppCompatActivity {
                     progressBarLoadingLogin.setVisibility(View.INVISIBLE);
                     showMessage("Please verify all feilds");
                 } else {
+                    btnLogin.setVisibility(View.INVISIBLE);
+                    progressBarLoadingLogin.setVisibility(View.VISIBLE);
                     signin(email, password);
                 }
             }

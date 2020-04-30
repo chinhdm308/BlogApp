@@ -46,7 +46,6 @@ public class RegisterActivity extends AppCompatActivity {
     private ProgressBar loadingRegisterProgress;
     private Button btnRegister;
     private TextView txtReadyToLogin;
-    private static int PreqCode = 1;
 
     private Uri pickedImgUri = null;
 
@@ -91,9 +90,7 @@ public class RegisterActivity extends AppCompatActivity {
                         if (pickedImgUri != null) {
                             loadingRegisterProgress.setVisibility(View.VISIBLE);
                             btnRegister.setVisibility(View.INVISIBLE);
-
                             createUserAccount(email, name, password);
-
                         } else {
                             showMessage("Please add image profile");
                             loadingRegisterProgress.setVisibility(View.INVISIBLE);
@@ -206,12 +203,13 @@ public class RegisterActivity extends AppCompatActivity {
     private void checkAndRequestForPermission() {
         if (ContextCompat.checkSelfPermission(RegisterActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(RegisterActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(RegisterActivity.this,
+                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
                 showMessage("Please accept for required permission");
             } else {
                 ActivityCompat.requestPermissions(RegisterActivity.this, new String[]{
                         Manifest.permission.READ_EXTERNAL_STORAGE
-                }, PreqCode);
+                }, 1);
             }
         } else {
             openGallery();

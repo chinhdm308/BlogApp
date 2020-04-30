@@ -9,7 +9,6 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#fff"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <androidx.appcompat.widget.Toolbar
@@ -24,5 +23,18 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <include layout="@layout/content_home" />
+
+    <com.luseen.spacenavigation.SpaceNavigationView
+        android:id="@+id/space"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:active_centre_button_icon_color="@color/colorPrimary"
+        app:centre_button_color="@android:color/white"
+        app:centre_button_icon="@drawable/ic_create_black_24dp"
+        app:inactive_centre_button_icon_color="#000"
+        app:space_background_color="@color/colorPrimary"
+        app:space_item_icon_only_size="@dimen/space_item_icon_only_size"
+        app:space_item_text_size="@dimen/space_item_text_size" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

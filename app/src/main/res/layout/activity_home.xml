@@ -23,5 +23,4 @@
         app:headerLayout="@layout/nav_header_home"
         app:itemTextColor="#000"
         app:menu="@menu/activity_home_drawer" />
-
 </androidx.drawerlayout.widget.DrawerLayout>
