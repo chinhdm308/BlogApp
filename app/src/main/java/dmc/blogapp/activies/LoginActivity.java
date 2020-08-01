@@ -26,10 +26,9 @@ public class LoginActivity extends AppCompatActivity {
     CircleImageView imgProfile;
     TextInputEditText txtEmail, txtPassword;
     Button btnLogin;
-    TextView txtCreateAcount;
+    TextView txtCreateAccount;
     ProgressBar progressBarLoadingLogin;
 
-    private FirebaseUser currentUser;
     private FirebaseAuth mAuth;
 
     @Override
@@ -52,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (email.isEmpty() || password.isEmpty()) {
                     btnLogin.setVisibility(View.VISIBLE);
                     progressBarLoadingLogin.setVisibility(View.INVISIBLE);
-                    showMessage("Please verify all feilds");
+                    showMessage("Please verify all fields");
                 } else {
                     btnLogin.setVisibility(View.INVISIBLE);
                     progressBarLoadingLogin.setVisibility(View.VISIBLE);
@@ -61,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        txtCreateAcount.setOnClickListener(new View.OnClickListener() {
+        txtCreateAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent activityRegister = new Intent(LoginActivity.this, RegisterActivity.class);
@@ -78,6 +77,8 @@ public class LoginActivity extends AppCompatActivity {
                     updateUI();
                 } else {
                     showMessage("Authentication Failed");
+                    btnLogin.setVisibility(View.VISIBLE);
+                    progressBarLoadingLogin.setVisibility(View.INVISIBLE);
                 }
             }
         });
@@ -106,7 +107,7 @@ public class LoginActivity extends AppCompatActivity {
     void mapping() {
         txtEmail = findViewById(R.id.txt_email);
         txtPassword = findViewById(R.id.txt_password);
-        txtCreateAcount = findViewById(R.id.txt_create_new_account);
+        txtCreateAccount = findViewById(R.id.txt_create_new_account);
         btnLogin = findViewById(R.id.btn_login);
         imgProfile = findViewById(R.id.img_profile);
         progressBarLoadingLogin = findViewById(R.id.progressBar_loading_login);

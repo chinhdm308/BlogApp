@@ -11,7 +11,7 @@
     <include
         layout="@layout/app_bar_home"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content" />
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
@@ -19,8 +19,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="@drawable/bg_nav_style"
-        android:fitsSystemWindows="false"
+        android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_home"
-        app:itemTextColor="#000"
         app:menu="@menu/activity_home_drawer" />
 </androidx.drawerlayout.widget.DrawerLayout>

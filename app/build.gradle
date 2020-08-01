@@ -34,9 +34,9 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment:2.2.2'
     implementation 'androidx.navigation:navigation-ui:2.2.2'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-    implementation 'com.google.firebase:firebase-auth:19.3.0'
-    implementation 'com.google.firebase:firebase-analytics:17.3.0'
-    implementation 'com.google.firebase:firebase-database:19.2.1'
+    implementation 'com.google.firebase:firebase-auth:19.3.1'
+    implementation 'com.google.firebase:firebase-analytics:17.4.0'
+    implementation 'com.google.firebase:firebase-database:19.3.0'
     implementation 'com.google.firebase:firebase-storage:19.1.1'
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
@@ -56,4 +56,10 @@ dependencies {
 
     // Space navigation view lib
     implementation 'com.github.armcha:SpaceNavigationView:1.6.0'
+
+    // cardview lib
+    implementation 'androidx.cardview:cardview:1.0.0'
+
+    // shape imageview lib
+    implementation 'com.github.siyamed:android-shape-imageview:0.9.3@aar'
 }

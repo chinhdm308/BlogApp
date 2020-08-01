@@ -6,35 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".activies.HomeActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:layout_margin="4dp"
-            android:background="@drawable/tool_bar_style"
-            android:elevation="3dp"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-    </com.google.android.material.appbar.AppBarLayout>
+        android:layout_height="?android:attr/actionBarSize"
+        android:layout_margin="4dp"
+        android:background="@drawable/tool_bar_style"
+        android:elevation="3dp"
+        app:title="My Title"
+        app:titleTextColor="@android:color/white" />
 
     <include layout="@layout/content_home" />
 
-    <com.luseen.spacenavigation.SpaceNavigationView
-        android:id="@+id/space"
-        android:layout_width="match_parent"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        app:active_centre_button_icon_color="@color/colorPrimary"
-        app:centre_button_color="@android:color/white"
-        app:centre_button_icon="@drawable/ic_create_black_24dp"
-        app:inactive_centre_button_icon_color="#000"
-        app:space_background_color="@color/colorPrimary"
-        app:space_item_icon_only_size="@dimen/space_item_icon_only_size"
-        app:space_item_text_size="@dimen/space_item_text_size" />
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:src="@drawable/ic_create_white_24dp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,9 +1,9 @@
 package dmc.blogapp.model;
 
 public class User {
-    String id;
-    String displayName;
-    String profileImg;
+    private String id;
+    private String displayName;
+    private String profileImg;
 
     public User() {
 

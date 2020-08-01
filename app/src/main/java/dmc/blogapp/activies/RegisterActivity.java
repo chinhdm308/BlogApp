@@ -41,6 +41,7 @@ import dmc.blogapp.model.User;
 public class RegisterActivity extends AppCompatActivity {
 
     private static final int REQUESCODE = 1;
+
     private CircleImageView imgProfile;
     private TextInputEditText txtDisplayName, txtEmail, txtPassword, txtConfirmPassword;
     private ProgressBar loadingRegisterProgress;
@@ -150,7 +151,7 @@ public class RegisterActivity extends AppCompatActivity {
                         // uri contain user image url
                         UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest.Builder()
                                 .setDisplayName(name)
-                                .setPhotoUri(pickedImgUri)
+                                .setPhotoUri(uri)
                                 .build();
                         currentUser.updateProfile(profileUpdate).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
